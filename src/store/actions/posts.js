@@ -1,59 +1,54 @@
-import postsInitial, {setPostsToStorage} from '../../data/posts'
-import {ADD_POST, FETCH_POSTS} from "../typesList";
-import personsInitial, {setPersonsToStorage} from "../../data/persons";
+import postsInitial, { setPostsToStorage } from "../../data/posts";
+import { FETCH_POSTS, ADD_POST} from "../typesList";
 
-
-export const getPosts = () =>{
-    return async dispatch => {
-        try {
-            const obj = getObj()
-            await dispatch(fetchPosts(obj))
-        } catch (e) {
-            console.log(e.message)
-        }
+export const getPosts = () => {
+  return async (dispatch) => {
+    try {
+      const obj = getObject();
+      await dispatch(fetchPosts(obj));
+    } catch (err) {
+      console.log(err.message);
     }
-}
+  };
+};
 
-export const addPost = post => {
-    return async dispatch => {
-        try {
-            console.log( post )
-            const newPost = await addPostInServer(post)
-            await dispatch(addPostInState(newPost))
-        } catch (e) {
-            console.log(e.message)
-        }
+export const addPost = (post) => {
+  return async (dispatch) => {
+    try {
+      const newPost = await addPostInServer(post);
+      await dispatch(addPostInState(newPost));
+    } catch (err) {
+      console.log(err.message);
     }
-}
+  };
+};
 
-const fetchPosts = data => {
-    return {
-        type: FETCH_POSTS,
-        payload: data
-    }
-}
+const getObject = () => {
+  return {
+    list: [...postsInitial],
+  };
+};
 
-const addPostInState = post => {
-    return {
-        type: ADD_POST,
-        payload: post
-    }
-}
+const fetchPosts = (obj) => {
+  return {
+    type: FETCH_POSTS,
+    payload: obj,
+  };
+};
 
-//Server Side
+const addPostInState = (post) => {
+  return {
+    type: ADD_POST,
+    payload: post,
+  };
+};
 
-const getObj = () => {
-    return {
-        list: [...postsInitial]
-    }
-}
-
-const addPostInServer = post => {
-    const newPost = {
-        ...post,
-        id: Date.now()
-    }
-    postsInitial.push(newPost)
-    setPostsToStorage(postsInitial)
-    return newPost
-}
+const addPostInServer = (post) => {
+  const newPost = {
+    ...post,
+    id: Date.now(),
+  };
+  postsInitial.push(newPost);
+  setPostsToStorage(postsInitial);
+  return newPost;
+};

@@ -1,39 +1,50 @@
-import React, {useEffect} from "react"
-import {connect} from "react-redux"
-import {changeActivePersonId, getPersons} from "../../store/actions/persons";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import {
+  changeActivePersonId,
+  getPersons,
+} from "../../store/actions/persons";
 
-const SelectActivePerson = ({persons, activePerson, getPersonsObject, changeActivePerson}) => {
+const SelectActivePerson = ({
+  persons,
+  activePerson,
+  getPersonsObject,
+  changeActivePerson,
+}) => {
+  
+  
+  useEffect(() => {
+    getPersonsObject();
+  }, []);
 
-    useEffect(() => {
-        console.log(persons)
-        getPersonsObject()
-    }, []);
+  const changeSelectValue = (event) => {
+    changeActivePerson(+event.target.value);
+  };
 
+  return persons.length ? (
+    <select onChange={changeSelectValue} defaultValue={activePerson || null}>
+      <option value="-1">Choose User</option>
+      {persons.map((p) => (
+        <option key={p.id} value={p.id}>
+          {p.fName} {p.lName}
+        </option>
+      ))}
+    </select>
+  ) : null;
+};
 
-    const changeSelectValue = event => {
-        changeActivePerson(+event.target.value)
-    }
+const mapStateToProps = (state) => {
+  return {
+    persons: state.persons.list,
+    activePerson: state.persons.activePerson,
+  };
+};
 
-    return persons.length ? (
-        <select onChange={changeSelectValue} defaultValue={activePerson || null}>
-            <option value='-1'>Choose a user</option>
-            {persons.map(p => (<option key={p.id} value={p.id}>{p.fName} {p.lName}</option>))}
-        </select>
-    ) : null
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPersonsObject: () => dispatch(getPersons()),
+    changeActivePerson: (newId) => dispatch(changeActivePersonId(newId)),
+  };
+};
 
-const mapStateToProps = state => {
-    return {
-        persons: state.persons.list,
-        activePerson: state.persons.activePerson
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        getPersonsObject: () => dispatch(getPersons()),
-        changeActivePerson: newId => dispatch(changeActivePersonId(newId))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectActivePerson)
+export default connect(mapStateToProps, mapDispatchToProps)(SelectActivePerson);

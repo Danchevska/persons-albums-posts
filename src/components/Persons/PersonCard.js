@@ -20,7 +20,7 @@ const PersonCard = ({person, deleteElement, activePersonId}) => {
             <div className="card">
                 <img src={person.avatar} className="card-img-top" alt="{person.fName} {person.lName}" />
                     <div className="card-body">
-                        <h5 className="card-title">{person.fName} {person.lName}</h5>
+                        <h5 className="card-title"> {person.fName} {person.lName}</h5>
                         <a href="#" onClick={clickHandle} className="btn btn-primary">Open profile</a>
                         {activePersonId === person.id && 1===2 ? <a href="#" onClick={deleteHandle} className="btn btn-danger">Delete me</a> : null}
                     </div>

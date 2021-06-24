@@ -1,14 +1,24 @@
 const InitialState = {
     persons: {
-        list: [],
-        activePerson: null,
-        editMode: false,
-        personById: {}
+      list: [],
+      activePerson: null,
+      editMode: false,
+      personById: {},
     },
+  
     posts: {
-        list: [],
-        addPostMode: false
-    }
-}
-
-export default InitialState
+      list: [],
+      addPostMode: false,
+    },
+  
+    albums: {
+      list: [],
+      addAlbumMode: false,
+    },
+  
+    photos: {
+      list: [],
+    },
+  };
+  
+  export default InitialState;
