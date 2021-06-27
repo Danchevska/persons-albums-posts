@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import PhotoReducer from "../../store/reducers/PhotosReducer"
+
 import { ADD_LIKE_TO_PHOTO, ADD_DISLIKE_TO_PHOTO } from "../../store/typesList";
 import { connect } from "react-redux";
-//import { editPhoto } from "../../store/actions/photo";
+import { editPhoto } from "../../store/actions/photo";
 
 const AddLike = ({ photo, addLike, addDislike, setEditedPhoto }) => {
   useEffect(() => {
@@ -20,13 +20,21 @@ const AddLike = ({ photo, addLike, addDislike, setEditedPhoto }) => {
     
   };
 
-  return (
+return (
     <div>
-      <button value={photo.like} onClick={addNewLike}>Like({photo.like})</button>
-      <button value={photo.like} onClick={addNewDislike}>DisLike({photo.dislike})</button>
+      <button value={photo.like} onClick={addNewLike}>
+        Like({photo.like})
+      </button>
+      <button onClick={addNewDislike}>DisLike({photo.dislike})</button>
     </div>
   );
 };
+
+const mapStateToProps = (state)=>{
+  return {
+    ...state
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -36,4 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(AddLike);
+export default connect(mapStateToProps, mapDispatchToProps)(AddLike);

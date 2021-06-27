@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { connect } from "react-redux";
 
 import { CHANGE_ADD_POST } from "../../store/typesList";
@@ -60,6 +60,7 @@ const AddPost = ({ activePerson, addLocalPost, setAddPostMode }) => {
 const mapStateToProps = (state) => {
   return {
     activePerson: state.persons.activePerson,
+    
   };
 };
 

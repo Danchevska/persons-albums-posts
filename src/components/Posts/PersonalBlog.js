@@ -7,11 +7,12 @@ const PersonalBlog = ({ personId, posts }) => {
         if (!personalPosts.length) {
             return <h3>Ooops...</h3>;
         }
-        return posts.map((post) => (
+        return personalPosts.map((post) => (
             <div key={post.id} className="card">
                 <div className="card-body">
                     <h3 className="card-title">{post.title}</h3>
                     <p className="card-text">{post.short}</p>
+                    <p className="card-text">{post.text}</p>
                 </div>
             </div>
         ));
@@ -19,7 +20,7 @@ const PersonalBlog = ({ personId, posts }) => {
     return <div className="container">{renderBlog()}</div>;
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state )=> {
     return {
         posts: state.posts.list
     }
